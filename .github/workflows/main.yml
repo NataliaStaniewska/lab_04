@@ -1,0 +1,17 @@
+name: hello
+
+on:
+  push:
+    branches:
+     -check_python_version
+     
+jobs:
+  hello:
+
+    runs-on: windows-latest
+
+    steps:
+    -id: step1
+    run: echo "hello"
+
+    
