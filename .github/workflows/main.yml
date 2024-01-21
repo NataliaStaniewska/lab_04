@@ -8,10 +8,11 @@ on:
 jobs:
   hello:
 
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
+    outputs:
+        output1: ${{ steps.step1.outputs.test }}
     steps:
-    -id: step1
-    run: echo "hello"
+      - id: step1
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
 
     
