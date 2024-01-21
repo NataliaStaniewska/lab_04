@@ -1,7 +1,9 @@
 name: check_python_version
 
 on: 
-    push
+    push:
+        branches:
+            - 'check_python_version'
      
 jobs:
   hello:
