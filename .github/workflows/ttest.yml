@@ -1,19 +1,23 @@
-name: check_python_version
+name: check_python_version  #Nadaje nazwę całemu workflow. W tym przypadku, nazwa to "check_python_version".
 
-on: 
+#Określa zdarzenia, które powodują uruchomienie tego workflow.W tym przypadku, workflow zostanie uruchomione po każdym push do repozytorium,
+# ale tylko dla brancha o nazwie "check_python_version".
+on:            
     push:
         branches:
-            - 'check_python_version'
-     
+            - 'check_python_version' 
+#Definiuje zadania, które mają być wykonane w ramach tego workflow. W tym przypadku, jest jedno zadanie o nazwie "python_version".     
 jobs:
-  hello:
+  python_version:
+
+  #Określa środowisko, na którym mają być wykonane zadania.
     runs-on: ubuntu-latest
-    steps:
-     - uses: actions/checkout@v4
-     - uses: actions/setup-python@v5
+    steps:   #Zawiera listę kroków, które mają być wykonane w ramach zadania.
+     - uses: actions/checkout@v4  #Pobiera zawartość repozytorium do środowiska uruchomieniowego GitHub Actions.
+     - uses: actions/setup-python@v5  #Konfiguruje środowisko Pythona na podstawie określonej wersji. W tym przypadku, wersja Pythona to '3.11'.
        with:
          python-version: '3.11'  
-     - run: pip install -U pip
-     - run: python -V
+     - run: pip install -U pip  #Aktualizuje narzędzie pip do najnowszej wersji.
+     - run: python -V  #Wyświetla wersję Pythona zainstalowaną w środowisku.
 
      
