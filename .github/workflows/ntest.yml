@@ -1,6 +1,9 @@
 name: hello
 
-on: [workflow_dispatch]
+on: 
+     push:
+          branches:
+               -check_python_version
      
 jobs:
   hello:
