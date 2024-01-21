@@ -6,10 +6,11 @@ jobs:
   hello:
 
     runs-on: ubuntu-latest
-    outputs:
-        output1: ${{ steps.step1.outputs.test }}
+   
     steps:
-      - id: step1
-        run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      - id: Set up pyton 
+        uses: actions/setup-pyton@v1
+        with: 
+             pyton-version: 3.11
 
     
