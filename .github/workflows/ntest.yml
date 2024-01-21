@@ -3,7 +3,7 @@ name: hello
 on: 
      push:
           branches:
-               -check_python_version
+               - 'check_python_version'
      
 jobs:
   hello:
