@@ -9,6 +9,8 @@ on:
     branches:
       - main
 
+# ...
+
 jobs:
   check_syntax:
     runs-on: ${{ matrix.os }}
@@ -51,3 +53,8 @@ jobs:
       - name: Additional Ubuntu steps
         if: matrix.os == 'ubuntu-latest' && matrix.python-version != '3.10'
         run: echo "Running additional steps on Ubuntu for Python version ${{ matrix.python-version }}"
+      
+      # Zaktualizowany krok do ustawienia Pythona zgodnie z nową wersją narzędzia
+      - name: Setup Python (for compatibility)
+        run: python -m pip install --upgrade actions/setup-python@v2
+
