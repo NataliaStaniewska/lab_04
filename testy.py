@@ -1,5 +1,5 @@
 import unittest
-from zad3 import add_numbers, subtract_numbers, multiply_numbers, divide_numbers
+from zad import add_numbers, subtract_numbers, multiply_numbers, divide_numbers
 
 
 class TestMathFunctions(unittest.TestCase):
