@@ -18,10 +18,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         python-version: ["3.9", "3.10", "3.11"]
-    # Wyłącz wersję Pythona 3.10 dla systemu Ubuntu
-    exclude:
-      - os: ubuntu-latest
-        python-version: "3.10"
 
     # Kroki do wykonania w ramach pracy
     steps:
