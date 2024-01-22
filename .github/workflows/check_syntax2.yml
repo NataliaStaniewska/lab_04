@@ -9,53 +9,45 @@ on:
     branches:
       - main
 
-# Definicja pracy (job)
 jobs:
   check_syntax:
-    # Strategia dla macierzy - różne systemy operacyjne i wersje Pythona
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
         python-version: ["3.9", "3.10", "3.11"]
 
     # Kroki do wykonania w ramach pracy
     steps:
-      # Pobranie repozytorium
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Konfiguracja wersji Pythona
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 
-      # Aktualizacja narzędzia pip
       - name: Update pip
         run: python -m pip install --upgrade pip
 
-      # Instalacja flake8
       - name: Install flake8
         run: python -m pip install flake8
 
-      # Instalacja unittest
-      - name: Install unittest
-        run: python -m pip install unittest
-
-      # Wyświetlenie wersji Pythona
       - name: Display Python version
         run: python -V
 
-      # Uruchomienie flake8 do analizy składni kodu
       - name: Run flake8
-        run: flake8
+        run: |
+          flake8
+          flake8_exit_code=$?
+          if [ $flake8_exit_code != 0 ]; then
+            exit $flake8_exit_code
+          fi
 
-      # Uruchomienie testów aplikacji z użyciem unittest
       - name: Run unittest
-        run: python -m unittest discover
-
+        run: python -m unittest discover -s . -p 'test_*.py'
+    
       - name: Additional Ubuntu steps
         if: matrix.os == 'ubuntu-latest' && matrix.python-version != '3.10'
         run: echo "Running additional steps on Ubuntu for Python version ${{ matrix.python-version }}"
-
