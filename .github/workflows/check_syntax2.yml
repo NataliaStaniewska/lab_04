@@ -58,3 +58,8 @@ jobs:
       # Uruchomienie testów aplikacji z użyciem unittest
       - name: Run unittest
         run: python -m unittest discover
+
+      - name: Additional Ubuntu steps
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version != '3.10'
+        run: echo "Running additional steps on Ubuntu for Python version ${{ matrix.python-version }}"
+
