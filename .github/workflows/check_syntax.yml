@@ -1,52 +1,42 @@
+name: Check Syntax
 
-
-# Nazwa workflow
-name: check_syntax
-
-# Wywołaj workflow po dodaniu pusha na gałąź 'check_syntax'
 on:
   push:
     branches:
-      - 'check_syntax'
+      - check_syntax
 
-# Definicja zadania 
 jobs:
   check_syntax:
     runs-on: ubuntu-latest
-    
-    # Strategia macierzy do uruchomienia zadania w różnych wersjach pythona
+
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11"]
+        python-version: [3.9, 3.10, 3.11]
 
-    
     steps:
-      # Pobranie repozytorium
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
-      # Konfiguracja wersji Pythona
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          # Optionally, you can specify a version range for pip
+          pip-version: latest
 
-      #  Aktualizacja narzędzia pip
       - name: Update pip
-        run: pip install -U pip
-
-     
-
-      # Wyświetlenie wersji Pythona
-      - name: Display Python version
-        run: python -V
-
-
+        run: |
+          python -m pip install --upgrade pip
+          
       - name: Install flake8
-        run: pip install flake8
+        run: |
+          pip install flake8
+
+      - name: Display Python version
+        run: |
+          python --version
+
       - name: Run flake8
-        uses: suo/flake8-github-action@releases/v1
-        with:
-          checkName: 'check_syntax'   # NOTE: this needs to be the same as the job name
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          flake8
+
