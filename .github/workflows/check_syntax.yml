@@ -45,4 +45,4 @@ jobs:
 
       # Uruchomienie flake8 
       - name: Run flake8
-        run: flake8
+        run: flake8 zad2.py
